@@ -60,8 +60,15 @@ test: $(BUILD)/kernel/kernel.bin
 qemu: $(BUILD)/cqustos.img
 	$(V)$(QEMU) -no-reboot -parallel stdio -hda $< -serial null
 
+TERMINAL        :=gnome-terminal
+
 debug: $(BUILD)/cqustos.img
 	$(V)$(QEMU) -S -s -parallel stdio -hda $< -serial null
+#	$(V)sleep 2
+#	$(V)$(TERMINAL) -e "gdb -q -tui -x tools/gdbinit"
+
+debug-nox: $(BUILD)/cqustos.img
+	$(V)$(QEMU) -S -s -serial mon:stdio -hda $< -nographic
 
 .PHONY: clean
 clean:

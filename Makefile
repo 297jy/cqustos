@@ -19,16 +19,26 @@ SRC := src
 
 ENTRYPOINT := 0X10000
 
+CFLAGS:= -m32
+
+DEBUG:=-g
+
+INCLUDE:=-I$(SRC)/include
+
 $(BUILD)/boot/%.bin: $(SRC)/boot/%.asm
 	$(shell mkdir -p $(dir $@))
 	nasm -f bin $< -o $@
 
 $(BUILD)/kernel/%.o: $(SRC)/kernel/%.asm
 	$(shell mkdir -p $(dir $@))
-	nasm -f elf32 $< -o $@
+	nasm -f  elf32 $(DEBUG) $< -o $@
+
+$(BUILD)/kernel/%.o: $(SRC)/kernel/%.c
+	$(shell mkdir -p $(dir $@))
+	gcc $(CFLAGS) $(DEBUG)  $(INCLUDE) -c $< -o $@
 
 # $^表示所有的依赖文件
-$(BUILD)/kernel/kernel.bin: $(BUILD)/kernel/start.o
+$(BUILD)/kernel/kernel.bin: $(BUILD)/kernel/start.o $(BUILD)/kernel/init.o
 	$(shell mkdir -p $(dir $@))
 	ld -m elf_i386 -static $^ -o $@ -Ttext $(ENTRYPOINT)
 
@@ -49,6 +59,9 @@ test: $(BUILD)/kernel/kernel.bin
 
 qemu: $(BUILD)/cqustos.img
 	$(V)$(QEMU) -no-reboot -parallel stdio -hda $< -serial null
+
+debug: $(BUILD)/cqustos.img
+	$(V)$(QEMU) -S -s -parallel stdio -hda $< -serial null
 
 .PHONY: clean
 clean:

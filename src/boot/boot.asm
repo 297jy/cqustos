@@ -19,9 +19,10 @@ mov ecx, 2; 起始扇区
 mov bl, 4;扇区数量
 call read_disk
 
-cmp word[0x1000],0x55aa
-jnz error
-jmp 0:0x1002
+;cmp word[0x1000],0x55aa
+;jnz error
+;jmp 0:0x1002
+jmp 0:0x1000
 
 jmp $
 

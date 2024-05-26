@@ -1,7 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+<<<<<<< Updated upstream
   <component name="CMakePythonSetting">
     <option name="pythonIntegrationState" value="YES" />
+=======
+  <component name="CMakeWorkspace">
+    <contentRoot DIR="$PROJECT_DIR$" />
+  </component>
+  <component name="MakefileSettings">
+    <option name="linkedExternalProjectsSettings">
+      <MakefileProjectSettings>
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="version" value="2" />
+      </MakefileProjectSettings>
+    </option>
+  </component>
+  <component name="MakefileWorkspace">
+    <contentRoot DIR="$PROJECT_DIR$" />
+>>>>>>> Stashed changes
   </component>
   <component name="CMakeWorkspace" PROJECT_DIR="$PROJECT_DIR$" />
 </project>
